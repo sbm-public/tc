@@ -509,9 +509,9 @@ const STYLES = `
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    background: #f6f6f6;
-    color: #454545;
-    border: 1px solid #c5c5c5;
+    background: #419623;
+    color: white;
+    border: 0px solid #c5c5c5;
     padding: 0.75rem 1.25rem;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
@@ -523,7 +523,6 @@ const STYLES = `
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: 0 0 5px #666;
     transition: all 0.2s ease;
     z-index: 100;
   }
