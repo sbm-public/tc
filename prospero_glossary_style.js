@@ -528,7 +528,7 @@ const STYLES = `
   }
 
   .prospero-glossary-trigger:hover {
-    background: #57cc2dff;
+    background: #58e126ff;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
