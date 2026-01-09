@@ -504,283 +504,354 @@ See also: Accuracy, Grounding, Critical Claim, Overconfident, Regulated Domains`
   // ============================================
   // STYLES
   // ============================================
-  const STYLES = `
-    .prospero-glossary-trigger {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: #e8c547;
-      color: #0d0d0d;
-      border: none;
-      padding: 0.75rem 1.25rem;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: all 0.2s ease;
-      z-index: ${CONFIG.zIndex};
-    }
-    .prospero-glossary-trigger:hover {
-      background: #c9a82e;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-    }
-    .prospero-glossary-trigger svg {
-      width: 16px;
-      height: 16px;
-    }
+const STYLES = `
+  /* Match jQuery UI (base) look/feel */
+  .prospero-glossary-trigger {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
 
-    .prospero-glossary-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: ${CONFIG.zIndex + 1};
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    .prospero-glossary-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-transform: none;
 
-    .prospero-glossary-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.95);
-      width: min(90vw, 700px);
-      max-height: 85vh;
-      background: #161616;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      z-index: ${CONFIG.zIndex + 2};
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .prospero-glossary-modal.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -50%) scale(1);
-    }
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 
-    .prospero-glossary-header {
-      padding: 1.25rem 1.25rem 1rem;
-      border-bottom: 1px solid #2a2a2a;
-      flex-shrink: 0;
-    }
-    .prospero-glossary-header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    .prospero-glossary-header h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #f5f5f5;
-      margin: 0;
-    }
-    .prospero-glossary-close {
-      background: none;
-      border: none;
-      color: #a0a0a0;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .prospero-glossary-close:hover {
-      background: #1f1f1f;
-      color: #f5f5f5;
-    }
-    .prospero-glossary-close svg {
-      width: 20px;
-      height: 20px;
-    }
+    padding: .4em 1em;
+    cursor: pointer;
+    user-select: none;
 
-    .prospero-glossary-search {
-      position: relative;
-    }
-    .prospero-glossary-search input {
-      width: 100%;
-      padding: 0.75rem 1rem 0.75rem 2.5rem;
-      background: #1f1f1f;
-      border: 1px solid #2a2a2a;
-      border-radius: 6px;
-      color: #f5f5f5;
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-    }
-    .prospero-glossary-search input::placeholder {
-      color: #a0a0a0;
-    }
-    .prospero-glossary-search input:focus {
-      outline: none;
-      border-color: #e8c547;
-      box-shadow: 0 0 0 3px rgba(232, 197, 71, 0.15);
-    }
-    .prospero-glossary-search-icon {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      color: #a0a0a0;
-    }
-    .prospero-glossary-search-count {
-      position: absolute;
-      right: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.75rem;
-      color: #a0a0a0;
-    }
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+    background: #f6f6f6;
+    color: #454545;
 
-    .prospero-glossary-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0.75rem 1.25rem;
-    }
-    .prospero-glossary-content::-webkit-scrollbar {
-      width: 8px;
-    }
-    .prospero-glossary-content::-webkit-scrollbar-track {
-      background: #1f1f1f;
-    }
-    .prospero-glossary-content::-webkit-scrollbar-thumb {
-      background: #2a2a2a;
-      border-radius: 4px;
-    }
-    .prospero-glossary-content::-webkit-scrollbar-thumb:hover {
-      background: #a0a0a0;
-    }
+    box-shadow: 0 0 5px #666;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    z-index: ${CONFIG.zIndex};
+  }
+  .prospero-glossary-trigger:hover {
+    border: 1px solid #ccc;
+    background: #ededed;
+    color: #2b2b2b;
+  }
+  .prospero-glossary-trigger:active {
+    border: 1px solid #003eff;
+    background: #007fff;
+    color: #fff;
+  }
+  .prospero-glossary-trigger svg {
+    width: 16px;
+    height: 16px;
+  }
 
-    .prospero-glossary-entry {
-      padding: 1rem 0;
-      border-bottom: 1px solid #2a2a2a;
-      animation: prosperoFadeIn 0.2s ease;
-    }
-    .prospero-glossary-entry:last-child {
-      border-bottom: none;
-    }
-    @keyframes prosperoFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .prospero-glossary-overlay {
+    position: fixed;
+    inset: 0;
+    background: #aaa;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: ${CONFIG.zIndex + 1};
+  }
+  .prospero-glossary-overlay.active {
+    opacity: .3;
+    visibility: visible;
+  }
 
-    .prospero-glossary-term {
-      font-size: 1.1rem;
-      color: #e8c547;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-    .prospero-glossary-definition {
-      color: #a0a0a0;
-      font-size: 0.875rem;
-      line-height: 1.65;
-    }
-    .prospero-glossary-definition strong {
-      color: #f5f5f5;
-      font-weight: 500;
-    }
-    .prospero-glossary-see-also {
-      margin-top: 0.6rem;
-      font-size: 0.8rem;
-      color: #a0a0a0;
-      font-style: italic;
-    }
-    .prospero-glossary-see-also span {
-      color: #c9a82e;
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-    .prospero-glossary-see-also span:hover {
-      color: #e8c547;
-    }
+  .prospero-glossary-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.98);
 
-    .prospero-glossary-no-results {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      color: #a0a0a0;
-    }
-    .prospero-glossary-no-results svg {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0.75rem;
-      opacity: 0.5;
-    }
+    width: min(90vw, 700px);
+    max-height: 85vh;
 
-    .prospero-glossary-footer {
-      padding: 0.75rem 1.25rem;
-      border-top: 1px solid #2a2a2a;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .prospero-glossary-page-info {
-      font-size: 0.8rem;
-      color: #a0a0a0;
-    }
-    .prospero-glossary-pagination {
-      display: flex;
-      gap: 0.4rem;
-    }
-    .prospero-glossary-btn {
-      background: #1f1f1f;
-      border: 1px solid #2a2a2a;
-      color: #f5f5f5;
-      padding: 0.4rem 0.75rem;
-      font-family: inherit;
-      font-size: 0.8rem;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .prospero-glossary-btn:hover:not(:disabled) {
-      background: #0d0d0d;
-      border-color: #e8c547;
-    }
-    .prospero-glossary-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    .prospero-glossary-btn svg {
-      width: 14px;
-      height: 14px;
-    }
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1.3;
 
-    .prospero-glossary-highlight {
-      background: rgba(232, 197, 71, 0.25);
-      color: #e8c547;
-      padding: 0.1em 0.2em;
-      border-radius: 2px;
-    }
-  `;
+    background: #fff;
+    color: #333;
+
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+
+    box-shadow: 0 0 5px #666;
+
+    z-index: ${CONFIG.zIndex + 2};
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .prospero-glossary-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .prospero-glossary-header {
+    padding: .4em 1em;
+    border-bottom: 1px solid #ddd;
+    background: #e9e9e9;
+    color: #333;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .prospero-glossary-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .4em;
+  }
+  .prospero-glossary-header h2 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .prospero-glossary-close {
+    background: transparent;
+    border: 1px solid transparent;
+    color: #454545;
+    cursor: pointer;
+
+    padding: 1px;
+    width: 20px;
+    height: 20px;
+
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .prospero-glossary-close:hover {
+    border: 1px solid #ccc;
+    background: #ededed;
+    color: #2b2b2b;
+  }
+  .prospero-glossary-close:active {
+    border: 1px solid #003eff;
+    background: #007fff;
+    color: #fff;
+  }
+  .prospero-glossary-close svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .prospero-glossary-search {
+    position: relative;
+  }
+  .prospero-glossary-search input {
+    width: 100%;
+    box-sizing: border-box;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1.3;
+
+    padding: .4em 1em .4em 2.2em;
+
+    background: #fff;
+    color: #333;
+
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .prospero-glossary-search input::placeholder {
+    color: #777;
+  }
+  .prospero-glossary-search input:focus {
+    outline: none;
+    border-color: #5e9ed6;
+    box-shadow: 0 0 3px 1px #5e9ed6; /* ui-visual-focus */
+  }
+  .prospero-glossary-search-icon {
+    position: absolute;
+    left: .6em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: #777;
+  }
+  .prospero-glossary-search-count {
+    position: absolute;
+    right: .6em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: .9em;
+    color: #777;
+  }
+
+  .prospero-glossary-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: .5em 1em;
+    background: #fff;
+    color: #333;
+  }
+  .prospero-glossary-content::-webkit-scrollbar {
+    width: 10px;
+  }
+  .prospero-glossary-content::-webkit-scrollbar-track {
+    background: #f6f6f6;
+  }
+  .prospero-glossary-content::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 3px;
+    border: 2px solid #f6f6f6;
+  }
+  .prospero-glossary-content::-webkit-scrollbar-thumb:hover {
+    background: #a6a6a6;
+  }
+
+  .prospero-glossary-entry {
+    padding: .6em 0;
+    border-bottom: 1px solid #ddd;
+    animation: prosperoFadeIn 0.2s ease;
+  }
+  .prospero-glossary-entry:last-child {
+    border-bottom: none;
+  }
+  @keyframes prosperoFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .prospero-glossary-term {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 .2em 0;
+  }
+
+  .prospero-glossary-definition {
+    color: #333;
+    font-size: 1em;
+    line-height: 1.5;
+  }
+  .prospero-glossary-definition strong {
+    color: #333;
+    font-weight: bold;
+  }
+
+  .prospero-glossary-see-also {
+    margin-top: .4em;
+    font-size: .95em;
+    color: #333;
+    font-style: italic;
+  }
+  .prospero-glossary-see-also span {
+    color: #007fff; /* jQuery UI active bg color */
+    cursor: pointer;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.2);
+  }
+  .prospero-glossary-see-also span:hover {
+    color: #003eff;
+    text-decoration-color: rgba(0,0,0,0.4);
+  }
+
+  .prospero-glossary-no-results {
+    text-align: center;
+    padding: 2em 1em;
+    color: #333;
+  }
+  .prospero-glossary-no-results svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: .75em;
+    opacity: 0.6;
+  }
+
+  .prospero-glossary-footer {
+    padding: .3em 1em .5em .4em; /* similar to ui-dialog-buttonpane */
+    border-top: 1px solid #ddd;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .prospero-glossary-page-info {
+    font-size: 1em;
+    color: #333;
+  }
+  .prospero-glossary-pagination {
+    display: flex;
+    gap: .2em;
+  }
+
+  .prospero-glossary-btn {
+    padding: .4em 1em;
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: normal;
+
+    cursor: pointer;
+    user-select: none;
+
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+    background: #f6f6f6;
+    color: #454545;
+
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .prospero-glossary-btn:hover:not(:disabled) {
+    border: 1px solid #ccc;
+    background: #ededed;
+    color: #2b2b2b;
+  }
+  .prospero-glossary-btn:active:not(:disabled) {
+    border: 1px solid #003eff;
+    background: #007fff;
+    color: #fff;
+  }
+  .prospero-glossary-btn:disabled {
+    opacity: .35;
+    cursor: default;
+    pointer-events: none;
+  }
+  .prospero-glossary-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* jQuery UI highlight */
+  .prospero-glossary-highlight {
+    background: #fffa90;
+    color: #777620;
+    border: 1px solid #dad55e;
+    padding: 0 .15em;
+    border-radius: 3px;
+  }
+`;
+
 
   // ============================================
   // HELPER FUNCTIONS
