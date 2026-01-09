@@ -528,9 +528,8 @@ const STYLES = `
   }
 
   .prospero-glossary-trigger:hover {
-    background: #ededed;
-    border-color: #ccc;
-    color: #2b2b2b;
+    background: #57cc2dff;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
