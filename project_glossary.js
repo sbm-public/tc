@@ -328,26 +328,36 @@
   // ============================================
   // HELPER FUNCTIONS
   // ============================================
-  function loadGlossaryData() {
-    const el = document.querySelector('[data-glossary]');
-    if (!el) {
-      console.error('Glossary: No element with data-glossary attribute found');
-      return false;
-    }
+  function loadGlossaryData(retries = 10, delay = 200) {
+    return new Promise((resolve) => {
+      function attempt(remaining) {
+        const el = document.querySelector('[data-glossary]');
+        if (el) {
+          const data = el.dataset.glossary;
+          if (!data) {
+            console.error('Glossary: data-glossary attribute is empty');
+            resolve(false);
+            return;
+          }
+          try {
+            GLOSSARY = JSON.parse(data);
+            resolve(true);
+          } catch (e) {
+            console.error('Glossary: Failed to parse glossary JSON', e);
+            resolve(false);
+          }
+          return;
+        }
 
-    const data = el.dataset.glossary;
-    if (!data) {
-      console.error('Glossary: No data-glossary attribute found');
-      return false;
-    }
-
-    try {
-      GLOSSARY = JSON.parse(data);
-      return true;
-    } catch (e) {
-      console.error('Glossary: Failed to parse glossary JSON', e);
-      return false;
-    }
+        if (remaining > 0) {
+          setTimeout(() => attempt(remaining - 1), delay);
+        } else {
+          console.error('Glossary: No element with data-glossary attribute found after retries');
+          resolve(false);
+        }
+      }
+      attempt(retries);
+    });
   }
 
   function injectStyles() {
@@ -554,9 +564,10 @@
   // ============================================
   // INITIALIZATION
   // ============================================
-  function init() {
-    // Load glossary data from DOM
-    if (!loadGlossaryData()) {
+  async function init() {
+    // Load glossary data from DOM (with retries)
+    const loaded = await loadGlossaryData();
+    if (!loaded) {
       console.warn('Glossary: Widget not initialized - no data found');
       return;
     }
