@@ -1,14 +1,3 @@
-/**
- * Glossary Widget
- * 
- * A self-contained, searchable glossary that injects itself into any webpage.
- * Reads glossary data from a data-glossary attribute on an element with id="glossary".
- * 
- * Usage: 
- * 1. Add element: <span id="glossary" data-glossary="{{html_escaped_json}}"></span>
- * 2. Include script: <script src="glossary.js"></script>
- */
-
 (function() {
   'use strict';
 
