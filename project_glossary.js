@@ -329,9 +329,9 @@
   // HELPER FUNCTIONS
   // ============================================
   function loadGlossaryData() {
-    const el = document.getElementById('glossary');
+    const el = document.querySelector('[data-glossary]');
     if (!el) {
-      console.error('Glossary: No element with id="glossary" found');
+      console.error('Glossary: No element with data-glossary attribute found');
       return false;
     }
 
