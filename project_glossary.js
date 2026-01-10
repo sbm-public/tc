@@ -25,28 +25,28 @@
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: #e8c547;
-      color: #0d0d0d;
-      border: none;
+      background: #419623;
+      color: white;
+      border: 0px solid #c5c5c5;
       padding: 0.75rem 1.25rem;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 600;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: normal;
       font-size: 0.85rem;
       letter-spacing: 0.03em;
       text-transform: uppercase;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       transition: all 0.2s ease;
       z-index: ${CONFIG.zIndex};
     }
     .glossary-trigger:hover {
-      background: #c9a82e;
+      background: #5fd435;
+      color: white;
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     .glossary-trigger svg {
       width: 16px;
@@ -56,8 +56,8 @@
     .glossary-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(170, 170, 170, 0.3);
+      backdrop-filter: blur(4px);
       z-index: ${CONFIG.zIndex + 1};
       opacity: 0;
       visibility: hidden;
@@ -75,9 +75,9 @@
       transform: translate(-50%, -50%) scale(0.95);
       width: min(90vw, 700px);
       max-height: 85vh;
-      background: #161616;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 3px;
       z-index: ${CONFIG.zIndex + 2};
       opacity: 0;
       visibility: hidden;
@@ -85,8 +85,8 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      box-shadow: 0 0 5px #666;
+      font-family: Arial, Helvetica, sans-serif;
     }
     .glossary-modal.active {
       opacity: 1;
@@ -95,41 +95,43 @@
     }
 
     .glossary-header {
-      padding: 1.25rem 1.25rem 1rem;
-      border-bottom: 1px solid #2a2a2a;
+      padding: 0.4em 1em;
+      border-bottom: 1px solid #ddd;
+      background: #e9e9e9;
       flex-shrink: 0;
     }
     .glossary-header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
     .glossary-header h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #f5f5f5;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #333;
       margin: 0;
     }
     .glossary-close {
-      background: none;
-      border: none;
-      color: #a0a0a0;
+      background: #f6f6f6;
+      border: 1px solid #c5c5c5;
+      color: #454545;
       cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 4px;
+      padding: 0.4rem;
+      border-radius: 3px;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .glossary-close:hover {
-      background: #1f1f1f;
-      color: #f5f5f5;
+      background: #ededed;
+      border-color: #ccc;
+      color: #2b2b2b;
     }
     .glossary-close svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
 
     .glossary-search {
@@ -137,32 +139,32 @@
     }
     .glossary-search input {
       width: 100%;
-      padding: 0.75rem 1rem 0.75rem 2.5rem;
-      background: #1f1f1f;
-      border: 1px solid #2a2a2a;
-      border-radius: 6px;
-      color: #f5f5f5;
+      padding: 0.5em 1em 0.5em 2.25rem;
+      background: #fff;
+      border: 1px solid #c5c5c5;
+      border-radius: 3px;
+      color: #333;
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 1em;
       transition: all 0.2s ease;
       box-sizing: border-box;
     }
     .glossary-search input::placeholder {
-      color: #a0a0a0;
+      color: #777;
     }
     .glossary-search input:focus {
       outline: none;
-      border-color: #e8c547;
-      box-shadow: 0 0 0 3px rgba(232, 197, 71, 0.15);
+      border-color: #003eff;
+      box-shadow: 0 0 3px 1px #5e9ed6;
     }
     .glossary-search-icon {
       position: absolute;
-      left: 0.75rem;
+      left: 0.6rem;
       top: 50%;
       transform: translateY(-50%);
       width: 16px;
       height: 16px;
-      color: #a0a0a0;
+      color: #777;
     }
     .glossary-search-count {
       position: absolute;
@@ -170,31 +172,32 @@
       top: 50%;
       transform: translateY(-50%);
       font-size: 0.75rem;
-      color: #a0a0a0;
+      color: #777;
     }
 
     .glossary-content {
       flex: 1;
       overflow-y: auto;
-      padding: 0.75rem 1.25rem;
+      padding: 0.5em 1em;
+      background: #fff;
     }
     .glossary-content::-webkit-scrollbar {
       width: 8px;
     }
     .glossary-content::-webkit-scrollbar-track {
-      background: #1f1f1f;
+      background: #f6f6f6;
     }
     .glossary-content::-webkit-scrollbar-thumb {
-      background: #2a2a2a;
-      border-radius: 4px;
+      background: #c5c5c5;
+      border-radius: 3px;
     }
     .glossary-content::-webkit-scrollbar-thumb:hover {
-      background: #a0a0a0;
+      background: #777;
     }
 
     .glossary-entry {
       padding: 1rem 0;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #ddd;
       animation: glossaryFadeIn 0.2s ease;
     }
     .glossary-entry:last-child {
@@ -207,38 +210,39 @@
 
     .glossary-term {
       font-size: 1.1rem;
-      color: #e8c547;
+      color: #007fff;
       margin-bottom: 0.4rem;
-      font-weight: 600;
+      font-weight: bold;
     }
     .glossary-definition {
-      color: #a0a0a0;
+      color: #333;
       font-size: 0.875rem;
-      line-height: 1.65;
+      line-height: 1.5715;
     }
     .glossary-definition strong {
-      color: #f5f5f5;
-      font-weight: 500;
+      color: #2b2b2b;
+      font-weight: bold;
     }
     .glossary-see-also {
       margin-top: 0.6rem;
       font-size: 0.8rem;
-      color: #a0a0a0;
+      color: #777;
       font-style: italic;
     }
     .glossary-see-also span {
-      color: #c9a82e;
+      color: #007fff;
       cursor: pointer;
       transition: color 0.2s ease;
     }
     .glossary-see-also span:hover {
-      color: #e8c547;
+      color: #003eff;
+      text-decoration: underline;
     }
 
     .glossary-no-results {
       text-align: center;
       padding: 2.5rem 1rem;
-      color: #a0a0a0;
+      color: #777;
     }
     .glossary-no-results svg {
       width: 40px;
@@ -248,8 +252,9 @@
     }
 
     .glossary-footer {
-      padding: 0.75rem 1.25rem;
-      border-top: 1px solid #2a2a2a;
+      padding: 0.5em 1em;
+      border-top: 1px solid #ddd;
+      background: #e9e9e9;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -257,32 +262,38 @@
     }
     .glossary-page-info {
       font-size: 0.8rem;
-      color: #a0a0a0;
+      color: #454545;
     }
     .glossary-pagination {
       display: flex;
       gap: 0.4rem;
     }
     .glossary-btn {
-      background: #1f1f1f;
-      border: 1px solid #2a2a2a;
-      color: #f5f5f5;
-      padding: 0.4rem 0.75rem;
+      background: #f6f6f6;
+      border: 1px solid #c5c5c5;
+      color: #454545;
+      padding: 0.4em 1em;
       font-family: inherit;
       font-size: 0.8rem;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 3px;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 0.25rem;
     }
     .glossary-btn:hover:not(:disabled) {
-      background: #0d0d0d;
-      border-color: #e8c547;
+      background: #ededed;
+      border-color: #ccc;
+      color: #2b2b2b;
+    }
+    .glossary-btn:active:not(:disabled) {
+      background: #007fff;
+      border-color: #003eff;
+      color: #fff;
     }
     .glossary-btn:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: not-allowed;
     }
     .glossary-btn svg {
@@ -291,16 +302,17 @@
     }
 
     .glossary-highlight {
-      background: rgba(232, 197, 71, 0.25);
-      color: #e8c547;
+      background: #fffa90;
+      color: #777620;
       padding: 0.1em 0.2em;
       border-radius: 2px;
+      border: 1px solid #dad55e;
     }
 
     .glossary-error {
       text-align: center;
       padding: 2.5rem 1rem;
-      color: #ff6b6b;
+      color: #cc0000;
     }
   `;
 
