@@ -24,29 +24,38 @@
     .glossary-trigger {
       position: fixed;
       bottom: 1.5rem;
-      right: 1.5rem;
-      background: #419623;
-      color: white;
-      border: 0px solid #c5c5c5;
-      padding: 0.75rem 1.25rem;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: normal;
-      font-size: 0.85rem;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgb(0, 123, 255);
+      background-image: none;
+      color: rgb(255, 255, 255);
+      border: 0.625px solid rgba(0, 0, 0, 0);
+      border-radius: 5.25px;
+      padding: 0 17.5px;
+      height: 46px;
+      font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 15.75px;
+      font-weight: 500;
+      font-feature-settings: "tnum";
+      line-height: 24.5px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: none;
+      white-space: nowrap;
       cursor: pointer;
-      border-radius: 3px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      transition: all 0.2s ease;
+      vertical-align: top;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      box-sizing: border-box;
+      appearance: button;
       z-index: ${CONFIG.zIndex};
     }
     .glossary-trigger:hover {
-      background: #5fd435;
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      background-color: rgb(0, 105, 217);
     }
     .glossary-trigger svg {
       width: 16px;
