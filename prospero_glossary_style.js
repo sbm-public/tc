@@ -508,7 +508,7 @@ const STYLES = `
   .prospero-glossary-trigger {
     position: fixed;
     bottom: 1.5rem;
-    right: 1.5rem;
+    left: 1.5rem;
     background: #419623;
     color: white;
     border: 0px solid #c5c5c5;
