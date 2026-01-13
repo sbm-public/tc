@@ -490,7 +490,7 @@ See also: Accuracy, Grounding, Critical Claim, Overconfident, Regulated Domains`
   // ============================================
   const CONFIG = {
     itemsPerPage: 8,
-    buttonPosition: 'bottom-right', // 'bottom-right', 'bottom-left', 'top-right', 'top-left'
+    buttonPosition: 'bottom-left', // 'bottom-right', 'bottom-left', 'top-right', 'top-left'
     zIndex: 10000
   };
 
